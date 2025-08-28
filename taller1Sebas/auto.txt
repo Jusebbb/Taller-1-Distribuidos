@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+#-----------------------------------------------------------
+# Ejecución por lotes para mmClasicaOpenMP (OpenMP)
+# Genera archivos en ./archivos_dat:
+#   mmClasicaOpenMP-<N>-Hilos-<T>.dat
+#-----------------------------------------------------------
+use strict;
+use warnings;
+
+my $Path       = `pwd`; chomp($Path);
+my $Ejecutable = "mmClasicaOpenMP";      # Debe coincidir con el binario del Makefile
+my $OutDir     = "$Path/archivos_dat";
+mkdir $OutDir unless -d $OutDir;
+
+# 12 dimensiones (<14K). Si tu RAM se queda corta, comenta las más grandes.
+my @Size_Matriz = (1000, 2000, 3040, 4040, 5040, 6000, 7040, 8000, 9040, 10040, 11040, 13040);
+my @Num_Hilos   = (1, 4, 8, 16, 20);
+my $Reps        = 7;    # repeticiones por combinación (>=5 recomendado)
+
+foreach my $N (@Size_Matriz){
+  foreach my $T (@Num_Hilos){
+    my $file = "$OutDir/$Ejecutable-$N-Hilos-$T.dat";
+    for (my $i=0; $i<$Reps; $i++){
+      system("$Path/$Ejecutable $N $T >> $file");
+    }
+  }
+}
+print "Listo. Archivos en $OutDir\n";
+
