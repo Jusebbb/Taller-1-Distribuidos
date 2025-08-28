@@ -1,4 +1,4 @@
-# ===== Taller 1 - MM OpenMP (Mac con Homebrew GCC) =====
+# ===== Taller 1 - MM OpenMP 
 CC      := gcc-15
 CFLAGS  := -O3 -march=native -fopenmp -Wall -Wextra
 TARGET  := mmClasicaOpenMP
