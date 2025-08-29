@@ -159,7 +159,7 @@ A continuación se presenta la tabla de resultados obtenidos en `estadisticas.cs
 
 # 📂 Scripts de análisis
 
-## `analisis.py`
+## `stats.py`
 - Lee los archivos `.dat` generados en `archivos_dat/`.
 - Calcula estadísticos: media, std, mediana, IC95%, speedup, eficiencia, GFLOPS.
 - Genera `estadisticas.csv` y gráficas de rendimiento.
