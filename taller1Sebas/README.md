@@ -93,7 +93,7 @@ multiplica 2 matrices 500 *500 usando 4 hilos
 - Eficiencia: `speedup/T`.  
 - GFLOPS ≈ `(2·N³)/(tiempo_segundos·1e9)`.  
 
-## Script de automatización (auto.pl)
+## Script de automatización (auto.txt)
 ```perl
 my @Size_Matriz = (200,400,600,...,3600);
 my @Num_Hilos   = (1,4,8,16,20);
