@@ -1,9 +1,12 @@
 #!/usr/bin/perl
-#-----------------------------------------------------------
-# Ejecución por lotes para mmClasicaOpenMP (OpenMP)
-# Genera archivos en ./archivos_dat:
-#   mmClasicaOpenMP-<N>-Hilos-<T>.dat
-#-----------------------------------------------------------
+#**************************************************************
+#     Pontificia Universidad Javeriana
+#     Autor: Juan Sebastian Vargas Cortes
+#     Fecha: Agosto 2025
+#     Materia: Sistemas Distribuidos
+#     Descripción: Ejecuta pruebas de carga para multiplicación de matrices
+#     con diferentes tamaños y números de hilos OpenMP
+#****************************************************************/
 use strict;
 use warnings;
 
