@@ -75,9 +75,7 @@ multiplica 2 matrices 500 *500 usando 4 hilos
 
 ## 🧪**Ejemplo de salida**
 
-<img width="597" height="103" alt="image" src="https://github.com/user-attachments/assets/f442be80-b36f-49f4-a25b-3a7f12d0f164" />
-
-representa el tiempo de ejecución en microsegundos para multiplicar dos matrices de 340 × 340 con 2 hilos.
+<img width="490" height="32" alt="Captura de pantalla 2025-08-28 a la(s) 9 45 08 p m" src="https://github.com/user-attachments/assets/d4676a17-2873-47d8-99d3-151ff47ddaa9" />
 
 ---
 
