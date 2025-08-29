@@ -1,26 +1,32 @@
-# 📘 Taller 1 — Multiplicación de Matrices 
+# 📘 Taller 1 — Multiplicación de Matrices con OpenMP
 
 ## 📌 Introducción
-Este proyecto implementa la **multiplicación clásica de matrices en C**, paralelizada con **OpenMP** 
-para aprovechar múltiples núcleos. Se acompaña de un **Makefile**, un **script de automatización en Perl**, 
-y un **análisis estadístico en Python**, integrando todo en un solo flujo de pruebas.
-
-El objetivo es analizar el rendimiento, la escalabilidad y la eficiencia del algoritmo bajo diferentes configuraciones de hilos y tamaños de matrices.
+Este proyecto desarrolla e implementa un algoritmo de **multiplicación de matrices clásica (MM)** en el lenguaje **C**,
+paralelizado con **OpenMP** para aprovechar el poder de cómputo de múltiples núcleos.  
+El trabajo incluye:
+- Código en **C** bien documentado.
+- **Makefile** para compilación automatizada.
+- **Script de automatización en Perl** para pruebas masivas.
+- **Script de análisis en Python** para procesar resultados.
+- **Plan de pruebas** con 12 dimensiones y 5 configuraciones de hilos.
+- **Resultados completos** en tabla y gráficas.
+- **Conclusiones y mejoras futuras**.
 
 ---
 
-## ⚙️ Funcionalidades principales
-- `iniMatrix` → Inicializa matrices con números aleatorios.
-- `impMatrix` → Imprime matrices pequeñas (N < 9).
-- `multiMatrix` → Multiplicación clásica con OpenMP.
-- `InicioMuestra / FinMuestra` → Cronometraje en microsegundos.
-- `main` → Control principal: recibe parámetros, ejecuta la multiplicación, mide tiempos.
+## ⚙️ Funcionalidades principales del código
+El archivo `mmClasicaOpenMP.c` implementa las siguientes funciones:
+
+- **`iniMatrix`** → Inicializa matrices con valores aleatorios.  
+- **`impMatrix`** → Imprime matrices pequeñas (N < 9).  
+- **`multiMatrix`** → Multiplicación clásica de matrices con paralelismo OpenMP.  
+- **`InicioMuestra` / `FinMuestra`** → Cronometraje en microsegundos.  
+- **`main`** → Controla el flujo del programa (entrada de parámetros, ejecución y salida).  
 
 ---
 
 # 🧱 Makefile documentado
-
-El **Makefile** automatiza la compilación y estandariza el proceso para todo el equipo.
+El **Makefile** automatiza la compilación, estandariza el proceso y evita recompilaciones innecesarias.
 
 ### Variables principales
 ```make
@@ -49,16 +55,40 @@ clean:
 	rm -f $(OBJS) $(DEPS) $(TARGET)
 ```
 
+**Beneficios:** reproducibilidad, rapidez, claridad y estandarización.
+
+## **🚀 Compilación **
+Con `Makefile`:
+```bash
+make
+```
+## **🚀 ejecución **
+Formato:
+```bash
+./clasicaOpenMP SIZE HILOS
+```
+Ejemplo:
+```bash
+./clasicaOpenMP 500 4
+```
+multiplica 2 matrices 500 *500 usando 4 hilos
+
+## 🧪**Ejemplo de salida**
+
+<img width="597" height="103" alt="image" src="https://github.com/user-attachments/assets/f442be80-b36f-49f4-a25b-3a7f12d0f164" />
+
+representa el tiempo de ejecución en microsegundos para multiplicar dos matrices de 340 × 340 con 2 hilos.
+
 ---
 
 # 🧪 Plan de pruebas
 
-## Diseño
+## Diseño experimental
 - **Tamaños (12 valores, N < 14 000):** {200, 400, 600, ..., 3600}.  
 - **Hilos (5 configuraciones):** {1, 4, 8, 16, 20}.  
 - **Repeticiones:** 30 por combinación `(N, T)`.  
 
-## Métricas
+## Métricas calculadas
 - Media, desviación estándar.  
 - Mediana, p90, IC95%.  
 - Speedup: `tiempo(1)/tiempo(T)`.  
@@ -83,9 +113,9 @@ foreach my $N (@Size_Matriz){
 
 ---
 
-## 📊 Resultados completos
+# 📊 Resultados completos
 
-A continuación se incluye la tabla de resultados de `estadisticas.csv`:
+A continuación se presenta la tabla de resultados obtenidos en `estadisticas.csv`:
 
 |    N |   Hilos |   n |         media_us |       mediana_us |           std_us |   speedup |   eficiencia |
 |-----:|--------:|----:|-----------------:|-----------------:|-----------------:|----------:|-------------:|
@@ -113,23 +143,41 @@ A continuación se incluye la tabla de resultados de `estadisticas.csv`:
 
 ---
 
-## 📉 Gráficas de rendimiento
+# 📉 Gráficas de rendimiento
 
 ### Speedup vs Número de Hilos
-![Speedup](graficas/speedup.png)
+<img width="1400" height="1000" alt="speedup (2)" src="https://github.com/user-attachments/assets/7c6f1c21-2da7-4bf4-85f3-d6dcb478daf6" />
+
 
 ### Eficiencia vs Número de Hilos
-![Eficiencia](graficas/eficiencia.png)
+<img width="1400" height="1000" alt="eficiencia (1)" src="https://github.com/user-attachments/assets/a4357897-7d0f-4733-85f8-a5fafef410c0" />
+
 
 ### Tiempo promedio vs Número de Hilos
-![Tiempo](graficas/tiempo.png)
+<img width="1400" height="1000" alt="tiempo" src="https://github.com/user-attachments/assets/63606bfa-869f-443d-ab2f-bc743130a1c6" />
+
 
 ---
 
-## ✅ Conclusiones
-1. Para matrices grandes, el paralelismo mejora significativamente el tiempo de ejecución.  
-2. En matrices pequeñas, el overhead de hilos puede empeorar el rendimiento.  
-3. La eficiencia decrece a medida que se aumenta el número de hilos, debido a límites de hardware y sincronización.  
-4. Repeticiones múltiples y análisis estadístico reducen ruido y validan los resultados.  
-5. OpenMP es una herramienta práctica para paralelizar, pero se ve limitada frente a alternativas como librerías BLAS o GPU (CUDA/OpenCL).  
+# 📂 Scripts de análisis
 
+## `analisis.py`
+- Lee los archivos `.dat` generados en `archivos_dat/`.
+- Calcula estadísticos: media, std, mediana, IC95%, speedup, eficiencia, GFLOPS.
+- Genera `estadisticas.csv` y gráficas de rendimiento.
+
+## `plot.py`
+- Usa `matplotlib` para graficar `speedup`, `eficiencia` y `tiempo`.
+- Guarda las gráficas en la carpeta `graficas/`.
+
+---
+
+# ✅ Conclusiones
+1. **Escalabilidad**: En matrices grandes se observa una mejora significativa al aumentar hilos.  
+2. **Sobrecarga**: En matrices pequeñas el overhead de paralelismo puede empeorar resultados.  
+3. **Eficiencia**: Disminuye a medida que se incrementan los hilos debido a límites de hardware.  
+4. **Repeticiones**: Ejecutar cada configuración varias veces permite un análisis estadístico confiable.  
+5. **Valor académico**: Este taller demuestra el impacto del paralelismo con OpenMP en algoritmos clásicos.  
+6. **Trabajo futuro**: Explorar algoritmos avanzados (Strassen, BLAS) o ejecución en GPU (CUDA/OpenCL).  
+
+---
